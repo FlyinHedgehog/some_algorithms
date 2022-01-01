@@ -48,9 +48,9 @@ def create_table(edit_matrix, word1, word2):
     for i in range(len(word2) + 1):
         edit_table[i + 1, 1:len(word1)+2] = edit_matrix[i, :]
 
-    print(tabulate(edit_table, tablefmt = 'fancy_grid', ))
+    edit_table = tabulate(edit_table, tablefmt = 'fancy_grid', )
 
-    return
+    return edit_table
 
 def main():
 
@@ -71,7 +71,8 @@ def main():
     elif choice == '2':
         word1, word2 = get_words()
         edit_matrix = min_edit_count(word1, word2)[1]
-        create_table(edit_matrix, word1, word2)
+        min_edit_table = create_table(edit_matrix, word1, word2)
+        print(min_edit_table)
     else:
         print('exiting...'); sleep(2)
 
