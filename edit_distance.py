@@ -7,25 +7,40 @@ from time import sleep
 
 def min_edit_count(word1, word2):
 
-    word1 = ' ' + word1
-    word2 = ' ' + word2
-    len_w1 = len(word1)
-    len_w2 = len(word2)
+    word1 = ' ' + word1     #
+    word2 = ' ' + word2     # add a space before original words
+
+    len_w1 = len(word1)     #
+    len_w2 = len(word2)     # calculate the lengths of new words
 
     edit_matrix = np.zeros((len_w2, len_w1), dtype = int)
-    edit_matrix[0, :] = range(len_w1)
+    # create a matrix with all zeros
+
+    edit_matrix[0, :] = range(len_w1)  
+    # assign numbers from 0 to len_w1 in the first row of the edit_matrix 
     edit_matrix[:, 0] = range(len_w2)
+    # assign numbers from 0 to len_w2 in the first column of the edit_matrix 
 
     for i in range(1, len_w2):
         for j in range(1, len_w1):
+            # edit_matrix[i-1][j] --> remove
+            # edit_matrix[i][j-1] --> insert
+            # edit_matrix[i-1][j-1] --> replace
+
             temp1 = edit_matrix[i-1][j] + 1
             temp2 = edit_matrix[i][j-1] + 1
+            # add 1 to edit_matrix[i-1][j] and edit_matrix[i][j-1]
+
             temp3 = edit_matrix[i-1][j-1] + 1 if word1[j] != word2[i] else edit_matrix[i-1][j-1]
+            # if last characters are same don't add 1 to edit_matrix[i-1][j-1].
+            # no need to replace
 
             edit_count = min(temp1, temp2, temp3)
+            # find min between three numbers
             edit_matrix[i][j] = edit_count
 
     min_edit = int(edit_matrix[len_w2 - 1, len_w1 - 1])
+    # minimum edit count is the last number calculated
     
     return min_edit, edit_matrix
 
