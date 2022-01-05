@@ -48,7 +48,7 @@ def create_table(edit_matrix, word1, word2):
     for i in range(len(word2) + 1):
         edit_table[i + 1, 1:len(word1)+2] = edit_matrix[i, :]
 
-    edit_table = tabulate(edit_table, tablefmt = 'fancy_grid', )
+    edit_table = tabulate(edit_table, tablefmt = 'fancy_grid')
 
     return edit_table
 
