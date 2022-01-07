@@ -25,16 +25,17 @@ def min_edit_count(word1, word2):
     for i in range(1, len_w2):
         for j in range(1, len_w1):
 
-            # if last characters are same don't add 1 to edit_matrix[i-1][j-1].
-            # no action
+            # if characters are same no action needed
+            # assign the edit count for the remaining str to the curr edit_matrix cell
             if word1[j] == word2[i]:
                 edit_matrix[i][j] = edit_matrix[i-1][j-1]
                 continue
             
-            # find min between three numbers
+            # if characters are different
+            # find min between the three numbers then add 1
             edit_matrix[i][j] = 1 + min(edit_matrix[i-1][j],       # remove
-                                 edit_matrix[i][j-1],       # insert
-                                 edit_matrix[i-1][j-1])     # replace
+                                 edit_matrix[i][j-1],              # insert
+                                 edit_matrix[i-1][j-1])            # replace
 
     # minimum edit count is the last number calculated
     min_edit = int(edit_matrix[len_w2 - 1, len_w1 - 1])
